@@ -19,7 +19,6 @@ def load_from_csv(file_path: str) -> InMemoryParticipantStore:
     Uses 'Track Name' as the participant name and 'Album Name' as image path placeholder.
     """
     store: InMemoryParticipantStore = InMemoryParticipantStore()
-    participants = []
 
     with open(file_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -30,4 +29,4 @@ def load_from_csv(file_path: str) -> InMemoryParticipantStore:
             if name:
                 store.add_participant(Participant(name))
 
-    return participants
+    return store
