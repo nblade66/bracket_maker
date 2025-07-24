@@ -1,0 +1,1 @@
+Run with `python -m BracketMaker.cli_h2h`
