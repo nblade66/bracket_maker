@@ -5,13 +5,13 @@
     each matchup and allow you to select the winner in the command line.
 """
 
-from BracketMaker.file_loader import load_from_txt
+from BracketMaker.file_loader import load_from_txt, load_from_csv
 from BracketMaker.core.bracket import Bracket
 
 def main():
     track_file = "data/complete_bts_discography.csv"
 
-    store = load_from_txt(track_file)
+    store = load_from_csv(track_file)
 
     participants = store.list_participants()
 
