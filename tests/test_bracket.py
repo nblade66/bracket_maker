@@ -1,9 +1,10 @@
 from BracketMaker.core.bracket import Bracket
-from BracketMaker.participant_store import ParticipantStore, InMemoryParticipantStore
+from BracketMaker.store.abstract_participant_store import ParticipantStore
+from BracketMaker.store.in_memory_participant_store import InMemoryParticipantStore
 from BracketMaker.participant import Participant
 
 def test_bracket_initialization():
-    store = InMemoryParticipantStore()
+    store: ParticipantStore = InMemoryParticipantStore()
     store.add_participant(Participant(name="P1"))
     store.add_participant(Participant(name="P2"))
     store.add_participant(Participant(name="P3"))

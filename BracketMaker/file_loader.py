@@ -1,4 +1,4 @@
-from BracketMaker.participant_store import InMemoryParticipantStore
+from BracketMaker.store.in_memory_participant_store import InMemoryParticipantStore
 from BracketMaker.participant import Participant
 
 import csv
