@@ -26,11 +26,10 @@ class Participant:
     """
     name: str
     # image_path: str
-    id: int | None = field(init=False)
+    id: int | None = None
     is_bye: bool = field(default=False, init=True)
 
     def __post_init__(self):
-        self.id = None
         self.name = self.name.strip()
         #self.image_path = self.image_path.strip()
 

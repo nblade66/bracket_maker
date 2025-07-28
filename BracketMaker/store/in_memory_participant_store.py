@@ -14,12 +14,14 @@ class InMemoryParticipantStore(ParticipantStore):
         participant.id = self.id_count
         self.id_count += 1
 
-    def add_participant(self, participant: Participant) -> None:
+    def add_participant(self, participant: Participant) -> Participant:
         if not participant.id:
             self.assign_id(participant)
         if participant.id in self._participants:
             raise ValueError("Participant already exists")
         self._participants[participant.id] = participant
+
+        return self._participants[participant.id]
 
     def remove_participant(self, participant_id: int) -> bool:
         return self._participants.pop(participant_id, None) is not None

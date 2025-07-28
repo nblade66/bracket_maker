@@ -13,11 +13,7 @@ def main():
 
     store = load_from_csv(track_file)
 
-    participants = store.list_participants()
-
-    participant_names = [participant.name for participant in participants]
-
-    bracket = Bracket(participants)
+    bracket = Bracket(store)
 
     print(bracket)
 

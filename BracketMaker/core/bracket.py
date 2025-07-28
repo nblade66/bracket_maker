@@ -1,6 +1,7 @@
 # bracket.py
 
 import random
+from BracketMaker.store.abstract_participant_store import ParticipantStore
 from BracketMaker.participant import Participant
 from BracketMaker.utils import interleave
 from typing import Self
@@ -106,17 +107,20 @@ class Bracket:
 
     participants: none of the participants in this list should be a "BYE" participant (is_bye set to True)
     """
-    def __init__(self, participants: list[Participant], rand_seed: int | None = None):
-        if len(participants) < 2:
+    def __init__(self, participant_store: ParticipantStore, rand_seed: int | None = None):
+        if not participant_store:
+            raise ValueError("A Participant Store is required.")
+
+        if len(participant_store.list_participants()) < 2:
             raise ValueError("At least two participants are required for a tournament.")
 
-        if any(participant.is_bye for participant in participants):
+        if any(participant.is_bye for participant in participant_store.list_participants()):
             raise ValueError("No participants should be a BYE. Those are added automatically")
 
-        self.participants = participants
+        self.participant_store = participant_store
         self.rounds: list[list[Matchup]] = []
         self.rand_seed = rand_seed
-        self._setup_bracket(participants)
+        self._setup_bracket(self.participant_store.list_participants())
 
     def _setup_bracket(self, participants: list[Participant]):
         """ Creates a shuffled bracket of Matchup objects from a list of participants """
@@ -220,14 +224,14 @@ class Bracket:
         return None
     
     def add_participant(self, participant: Participant, matchup_index: int):
-        """ Adds participant to self.participants and the designated matchup. Participants
+        """ Adds participant to self.participant_store and the designated matchup. Participants
             can only be added to the first round if there is a bye in that spot. Otherwise,
             remove a participant from a Matchup before adding a new participant.
             
             Raises a ValueError if the participant already exists or the matchup
             already has two participants.
         """
-        if any(p.id == participant.id for p in self.participants):
+        if any(p.id == participant.id for p in self.participant_store.list_participants()):
             raise ValueError(f"Participant with ID {participant.id} already exists.")
         if matchup_index >= len(self.rounds[0]):
             raise IndexError("Invalid matchup index.")
@@ -238,7 +242,7 @@ class Bracket:
         
         # Don't add the participant to the participant list if it is a "BYE" participant
         if not participant.is_bye:
-            self.participants.append(participant)
+            self.participant_store.add_participant(participant)
 
         if not matchup.participant1 or matchup.participant1.is_bye:
             matchup.participant1 = participant
@@ -248,7 +252,7 @@ class Bracket:
         matchup.set_winner(None)
     
     def get_participant_by_id(self, participant_id: int) -> Participant | None:
-        for p in self.participants:
+        for p in self.participant_store.list_participants():
             if p.id == participant_id:
                 return p
         
@@ -256,10 +260,10 @@ class Bracket:
     
     def get_participant_by_name(self, name: str) -> list[Participant]:
         """ Finds all participants with a certain name """
-        return [p for p in self.participants if p.name == name]
+        return [p for p in self.participant_store.list_participants() if p.name == name]
     
     def remove_participant(self, participant_id: int) -> Participant | None:
-        """ Removes the participant with participant_id from self.participants and
+        """ Removes the participant with participant_id from self.participant_store and
             the corresponding matchup where the participant is. Any matchups in later
             rounds that the participant was part of are set to TBD.
 
@@ -272,7 +276,7 @@ class Bracket:
         participant = self.get_participant_by_id(participant_id=participant_id)
         if not participant:
             return None
-        self.participants = [p for p in self.participants if p.id != participant_id]
+        self.participant_store.remove_participant(participant_id=participant_id)
         for rnd in self.rounds:
             for matchup in rnd:
                 if matchup.participant1 is participant:
@@ -287,7 +291,7 @@ class Bracket:
         return None
     
     def list_participants(self) -> list[Participant]:
-        return self.participants[:]
+        return self.participant_store.list_participants()[:]
     
     def get_matchup_by_participant_id(self, participant_id: int) -> list[tuple[Matchup, int, int]] | None:
         """ Gets a matchup by the participant id.
