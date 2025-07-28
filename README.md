@@ -2,13 +2,8 @@ Run with `python -m BracketMaker.cli_h2h`.
 I got the bts playlist ("data/complete_bts_discography.csv") from https://open.spotify.com/playlist/3ofZ4VaQrKkgE8KaDKxP1b?si=V1JsibuzS669Gd30ngfv9Q&pi=EnHxvW9yTOuOE&nd=1&dlsi=1a653f0c27944850 (from reddit post https://www.reddit.com/r/bangtan/comments/1l04vet/a_complete_guide_to_bts_discography_from_debut_to/) and exported to a csv file using https://exportify.net/.
 
 TODO:
-* Solve Participant ID Problem:
-  * ParticipantStore will assign each participant an ID
-  * Participants cannot be shared between stores
-  * In the future, if we want to create a global participant store shared between all brackets,
-    we can do that, but I think that overcomplicates, especially considering brackets are usually
-    self-contained.
-* Participants need to be stored in the Bracket object in a participant_store, not just in a list
+* Goddamn it, FileLoader depends on the Store, and the SQLiteParticipantStore requires a file name
+  that the InMemoryParticipantStore doesn't have. How do I reconcile this issue?
 * Bracket needs to use the store, not its own participant list
 * Feature to save the bracket and come back to it later
 * Feature to reset the bracket to round 1 or reset the round
