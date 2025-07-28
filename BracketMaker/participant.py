@@ -11,11 +11,12 @@ class Participant:
     For development purposes, the code related to image file is commented out.
 
     Each participant has a unique ID, a name, and a path to an associated image file.
-    IDs are auto-generated to distinguish participants with the same name.
+    IDs are assigned by the ParticipantStore.
+    Participants will not be shared between ParticipantStores.
     The class validates that the name is not empty.
 
     Attributes:
-        id (int): Auto-incremented unique identifier for the participant.
+        id (int): Participant ID, assigned by the ParticipantStore
         name (str): Name of the participant.
         image_path (str): Path to an image file representing the participant.
 
@@ -25,14 +26,11 @@ class Participant:
     """
     name: str
     # image_path: str
-    id: int = field(init=False)
+    id: int | None = field(init=False)
     is_bye: bool = field(default=False, init=True)
 
-    # Class-level ID counter (auto-increments for each new participant)
-    _id_counter = itertools.count(1)
-
     def __post_init__(self):
-        self.id = next(self._id_counter)
+        self.id = None
         self.name = self.name.strip()
         #self.image_path = self.image_path.strip()
 

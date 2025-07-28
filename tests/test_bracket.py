@@ -11,7 +11,7 @@ def test_bracket_initialization():
     store.add_participant(Participant(name="P4"))
     store.add_participant(Participant(name="P5"))
 
-    bracket = Bracket(store.list_participants(), rand_seed=111)
+    bracket = Bracket(store, rand_seed=111)
 
     print(bracket)
     

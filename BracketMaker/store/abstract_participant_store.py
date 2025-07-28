@@ -9,6 +9,11 @@ class ParticipantStore(ABC):
 
     @abstractmethod
     def add_participant(self, participant: Participant) -> None:
+        """ Adds participant to participant store. Assigns the participant a unique ID.
+
+            Should raise a ValueError if participant already exists.
+            Perhaps there should be an update_participant() function?
+        """
         pass
 
     @abstractmethod
