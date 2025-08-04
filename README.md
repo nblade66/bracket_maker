@@ -4,6 +4,9 @@ I got the bts playlist ("data/complete_bts_discography.csv") from https://open.s
 TODO:
 * Goddamn it, FileLoader depends on the Store, and the SQLiteParticipantStore requires a file name
   that the InMemoryParticipantStore doesn't have. How do I reconcile this issue?
+  * I think there should be different FileLoaders that extend FileLoader. Each ParticipantStore should have its own load() function that takes the correct file and verifies the file extension. The ParticipantStore needs a Factory that will create the proper ParticipantStore related to each Bracket. Bracket will call the Factory.
+  * Certain Bracket types will call specific ParticipantStore, while the general Bracket will accept all types of stores. E.g. SongBracket will accept SongParticipantStore, which will only use SongParticipant. Bracket will accept anything that extends ParticipantStore, which will accept anything that extends Participant.
+* I need a BracketManager class that will create Brackets, assign them IDs, etc.
 * Bracket needs to use the store, not its own participant list
 * Feature to save the bracket and come back to it later
 * Feature to reset the bracket to round 1 or reset the round
