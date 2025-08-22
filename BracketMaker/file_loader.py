@@ -4,30 +4,34 @@ from BracketMaker.participant import Participant
 
 import csv
 
-def load_from_txt(file_path: str) -> ParticipantStore:
-    """ Load participants from a new-line delineated file """
-    store: ParticipantStore = SQLiteParticipantStore()
-    with open(file_path, 'r') as f:
-        for line in f.readlines():
-            line = line.strip()
-            store.add_participant(Participant(line))
-    
-    return store
-
-def load_from_csv(file_path: str) -> ParticipantStore:
+class FileLoader:
+    """ Pass in a ParticipantStore that needs to have participants added.
+        Will not check if the ParticipantStore is empty.
     """
-    Load participants from a CSV file with a specific header format.
-    Uses 'Track Name' as the participant name and 'Album Name' as image path placeholder.
-    """
-    store: ParticipantStore = SQLiteParticipantStore()
+    def __init__(self, store: ParticipantStore):
+        self.store = store
 
-    with open(file_path, newline='', encoding='utf-8') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            name = row.get("Track Name", "").strip()
-            album = row.get("Album Name", "").strip()
+    def load_from_txt(self, file_path: str) -> ParticipantStore:
+        """ Load participants from a new-line delineated file """
+        with open(file_path, 'r') as f:
+            for line in f.readlines():
+                line = line.strip()
+                self.store.add_participant(Participant(line))
+        
+        return self.store
 
-            if name:
-                store.add_participant(Participant(name))
+    def load_from_csv(self, file_path: str) -> ParticipantStore:
+        """
+        Load participants from a CSV file with a specific header format.
+        Uses 'Track Name' as the participant name and 'Album Name' as image path placeholder.
+        """
+        with open(file_path, newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                name = row.get("Track Name", "").strip()
+                album = row.get("Album Name", "").strip()
 
-    return store
+                if name:
+                    self.store.add_participant(Participant(name))
+
+        return self.store
