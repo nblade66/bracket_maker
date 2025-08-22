@@ -1,10 +1,15 @@
-from BracketMaker.file_loader import load_from_txt, load_from_csv
+from BracketMaker.file_loader import FileLoader
 from BracketMaker.core.bracket import Bracket
+from BracketMaker.store.in_memory_participant_store import InMemoryParticipantStore
 
 def test_load_from_txt():
     test_file = "data/test_participants.txt"
 
-    store = load_from_txt(test_file)
+    store = InMemoryParticipantStore()
+
+    loader = FileLoader(store)
+
+    loader.load_from_txt(test_file)
 
     participant_names = [participant.name for participant in store.list_participants()]
 
@@ -28,7 +33,11 @@ def test_load_from_csv():
     """ This tests loading from a csv file from a playlist that was exported from Spotify """
     test_file = "data/test_bts_spotify_export.csv"
 
-    store = load_from_csv(test_file)
+    store = InMemoryParticipantStore()
+
+    loader = FileLoader(store)
+
+    loader.load_from_csv(test_file)
 
     participant_names = [participant.name for participant in store.list_participants()]
 

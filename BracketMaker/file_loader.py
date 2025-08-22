@@ -10,6 +10,15 @@ class FileLoader:
     """
     def __init__(self, store: ParticipantStore):
         self.store = store
+    
+    def load(self, file_path: str) -> ParticipantStore:
+        if file_path.strip().endswith(".txt"):
+            return self.load_from_txt(file_path)
+        if file_path.strip().endswith(".csv"):
+            return self.load_from_txt(file_path)
+        
+        raise ValueError("File type is incorrect. Accepted file types are .txt and .csv")
+
 
     def load_from_txt(self, file_path: str) -> ParticipantStore:
         """ Load participants from a new-line delineated file """

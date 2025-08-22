@@ -5,13 +5,18 @@
     each matchup and allow you to select the winner in the command line.
 """
 
-from BracketMaker.file_loader import load_from_txt, load_from_csv
+from BracketMaker.file_loader import FileLoader
 from BracketMaker.core.bracket import Bracket
+from BracketMaker.store.sqlite_participant_store import SQLiteParticipantStore
 
 def main():
     track_file = "data/complete_bts_discography.csv"
 
-    store = load_from_csv(track_file)
+    store = SQLiteParticipantStore()    # TODO Create a unique Store ID: cli_h2h_date_time
+
+    loader = FileLoader(store)
+
+    loader.load(track_file)
 
     bracket = Bracket(store)
 
