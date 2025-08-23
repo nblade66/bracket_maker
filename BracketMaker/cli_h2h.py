@@ -12,7 +12,7 @@ from BracketMaker.store.sqlite_participant_store import SQLiteParticipantStore
 def main():
     track_file = "data/complete_bts_discography.csv"
 
-    store = SQLiteParticipantStore()    # TODO Create a unique Store ID: cli_h2h_date_time
+    store = SQLiteParticipantStore()    # TODO Create a unique Store file name: cli_h2h_date_time.db
 
     loader = FileLoader(store)
 
