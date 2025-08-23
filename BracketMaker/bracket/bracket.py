@@ -1,8 +1,8 @@
 # bracket.py
 
 import random
-from BracketMaker.store.abstract_participant_store import ParticipantStore
-from BracketMaker.participant import Participant
+from BracketMaker.participant.store.abstract_participant_store import ParticipantStore
+from BracketMaker.participant.participant import Participant
 from BracketMaker.utils import interleave
 from typing import Self
 

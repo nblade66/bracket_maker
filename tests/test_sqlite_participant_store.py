@@ -2,8 +2,8 @@ import pytest
 import tempfile
 import os
 import gc
-from BracketMaker.store.sqlite_participant_store import SQLiteParticipantStore
-from BracketMaker.participant import Participant
+from BracketMaker.participant.store.sqlite_participant_store import SQLiteParticipantStore
+from BracketMaker.participant.participant import Participant
 
 @pytest.fixture
 def store():

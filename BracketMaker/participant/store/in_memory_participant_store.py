@@ -1,5 +1,5 @@
-from BracketMaker.participant import Participant
-from BracketMaker.store.abstract_participant_store import ParticipantStore
+from BracketMaker.participant.participant import Participant
+from BracketMaker.participant.store.abstract_participant_store import ParticipantStore
 
 class InMemoryParticipantStore(ParticipantStore):
     """Stores participants in memory using a dictionary."""

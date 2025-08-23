@@ -6,8 +6,8 @@
 """
 
 from BracketMaker.file_loader import FileLoader
-from BracketMaker.core.bracket import Bracket
-from BracketMaker.store.sqlite_participant_store import SQLiteParticipantStore
+from BracketMaker.bracket.bracket import Bracket
+from BracketMaker.participant.store.sqlite_participant_store import SQLiteParticipantStore
 
 def main():
     track_file = "data/complete_bts_discography.csv"

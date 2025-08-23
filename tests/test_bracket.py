@@ -1,7 +1,7 @@
-from BracketMaker.core.bracket import Bracket
-from BracketMaker.store.abstract_participant_store import ParticipantStore
-from BracketMaker.store.in_memory_participant_store import InMemoryParticipantStore
-from BracketMaker.participant import Participant
+from BracketMaker.bracket.bracket import Bracket
+from BracketMaker.participant.store.abstract_participant_store import ParticipantStore
+from BracketMaker.participant.store.in_memory_participant_store import InMemoryParticipantStore
+from BracketMaker.participant.participant import Participant
 
 def test_bracket_initialization():
     store: ParticipantStore = InMemoryParticipantStore()

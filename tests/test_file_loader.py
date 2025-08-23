@@ -1,6 +1,5 @@
 from BracketMaker.file_loader import FileLoader
-from BracketMaker.core.bracket import Bracket
-from BracketMaker.store.in_memory_participant_store import InMemoryParticipantStore
+from BracketMaker.participant.store.in_memory_participant_store import InMemoryParticipantStore
 
 def test_load_from_txt():
     test_file = "data/test_participants.txt"

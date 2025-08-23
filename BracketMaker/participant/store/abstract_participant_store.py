@@ -1,7 +1,7 @@
 # participant_store.py
 
 from abc import ABC, abstractmethod
-from BracketMaker.participant import Participant
+from BracketMaker.participant.participant import Participant
 
 
 class ParticipantStore(ABC):

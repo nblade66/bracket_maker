@@ -1,6 +1,6 @@
-from BracketMaker.store.abstract_participant_store import ParticipantStore
-from BracketMaker.store.sqlite_participant_store import SQLiteParticipantStore
-from BracketMaker.participant import Participant
+from BracketMaker.participant.store.abstract_participant_store import ParticipantStore
+from BracketMaker.participant.store.sqlite_participant_store import SQLiteParticipantStore
+from BracketMaker.participant.participant import Participant
 
 import csv
 
