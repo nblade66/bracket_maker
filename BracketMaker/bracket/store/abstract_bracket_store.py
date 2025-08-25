@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
-from BracketMaker.bracket import Bracket
+from BracketMaker.bracket.bracket import Bracket
 
 class BracketStore(ABC):
-    """Abstract base class for Bracket storage."""
+    """Abstract base class for Bracket storage. Unique IDs are strings"""
 
     @abstractmethod
     def create(self, bracket_id, bracket: Bracket):

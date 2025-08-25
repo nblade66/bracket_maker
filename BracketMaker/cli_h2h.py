@@ -10,6 +10,7 @@ from BracketMaker.bracket.bracket import Bracket
 from BracketMaker.participant.store.sqlite_participant_store import SQLiteParticipantStore
 
 def main():
+    """ Add BracketStore to this, so that brackets can be saved and resumed """
     track_file = "data/complete_bts_discography.csv"
 
     store = SQLiteParticipantStore()    # TODO Create a unique Store file name: cli_h2h_date_time.db

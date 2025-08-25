@@ -107,7 +107,7 @@ class Bracket:
 
     participants: none of the participants in this list should be a "BYE" participant (is_bye set to True)
     """
-    def __init__(self, participant_store: ParticipantStore, rand_seed: int | None = None):
+    def __init__(self, name: str, participant_store: ParticipantStore, rand_seed: int | None = None):
         if not participant_store:
             raise ValueError("A Participant Store is required.")
 
@@ -117,6 +117,7 @@ class Bracket:
         if any(participant.is_bye for participant in participant_store.list_participants()):
             raise ValueError("No participants should be a BYE. Those are added automatically")
 
+        self.name = name
         self.participant_store = participant_store
         self.rounds: list[list[Matchup]] = []
         self.rand_seed = rand_seed
@@ -324,7 +325,7 @@ class Bracket:
         return None
 
     def __repr__(self):
-        repr_str = ""
+        repr_str = self.name + "\n"
         for i, rnd in enumerate(self.rounds, 1):
             repr_str += f"Round {i}:\n"
             for m in rnd:
