@@ -25,7 +25,7 @@ def create_sample_bracket():
     participant_store.add_participant(Participant(name="P3"))
     participant_store.add_participant(Participant(name="P4"))
     participant_store.add_participant(Participant(name="P5"))
-    return Bracket(participant_store, rand_seed=111)
+    return Bracket("test_bracket", participant_store, rand_seed=111)
 
 def test_create_and_read_bracket(store):
     bracket = create_sample_bracket()

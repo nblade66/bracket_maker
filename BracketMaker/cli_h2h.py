@@ -25,6 +25,10 @@ def main():
 
     head_to_head(bracket)
 
+def load_bracket(bracket_id: str):
+    # TODO: load the bracket from the bracket store
+    pass
+
 def head_to_head(bracket: Bracket):
     print("Starting head-to-head matchup selection...")
 

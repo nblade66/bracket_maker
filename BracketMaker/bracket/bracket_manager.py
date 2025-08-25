@@ -2,7 +2,8 @@ from BracketMaker.bracket.bracket import Bracket
 from BracketMaker.bracket.store.abstract_bracket_store import BracketStore
 
 class BracketManager:
-    """Manages Bracket objects using BracketStore."""
+    """ Manages Bracket objects using BracketStore.
+    """
     def __init__(self, store: BracketStore):
         self.store = store
 
