@@ -5,6 +5,8 @@ class BracketManager:
     """ Manages Bracket objects using BracketStore.
     """
     def __init__(self, store: BracketStore):
+        if not store:
+            pass # TODO create the store
         self.store = store
 
     def add_bracket(self, bracket_id, bracket: Bracket):

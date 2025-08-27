@@ -2,7 +2,7 @@ from BracketMaker.file_loader import FileLoader
 from BracketMaker.participant.store.in_memory_participant_store import InMemoryParticipantStore
 
 def test_load_from_txt():
-    test_file = "data/test_participants.txt"
+    test_file = "tests/data/imports/test_participants.txt"
 
     store = InMemoryParticipantStore()
 
@@ -30,7 +30,7 @@ def test_load_from_txt():
 
 def test_load_from_csv():
     """ This tests loading from a csv file from a playlist that was exported from Spotify """
-    test_file = "data/test_bts_spotify_export.csv"
+    test_file = "tests/data/imports/test_bts_spotify_export.csv"
 
     store = InMemoryParticipantStore()
 

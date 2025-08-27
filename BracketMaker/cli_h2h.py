@@ -15,9 +15,9 @@ def main():
 
     bracket_manager = BracketManager()
 
-    track_file = "data/complete_bts_discography.csv"
+    track_file = "data/imports/complete_bts_discography.csv"
 
-    store = SQLiteParticipantStore()    # TODO Create a unique Store file name: cli_h2h_date_time.db
+    store = SQLiteParticipantStore()
 
     loader = FileLoader(store)
 

@@ -4,7 +4,9 @@ from BracketMaker.participant.store.abstract_participant_store import Participan
 
 
 class SQLiteParticipantStore(ParticipantStore):
-    def __init__(self, db_path: str = "participants.db"):
+    # TODO: automatically create unique db file names; hey, that solves my issue of arguments for ParticipantStores! Just have the store itself check the directory and create a new file name if one already exists.
+    """Stores participants in a SQLite database."""
+    def __init__(self, db_path: str = "data/participants/participants.db"):
         self.db_path = db_path
         self._initialize_db()
 
