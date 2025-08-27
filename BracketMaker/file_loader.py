@@ -15,7 +15,7 @@ class FileLoader:
         if file_path.strip().endswith(".txt"):
             return self.load_from_txt(file_path)
         if file_path.strip().endswith(".csv"):
-            return self.load_from_txt(file_path)
+            return self.load_from_csv(file_path)
         
         raise ValueError("File type is incorrect. Accepted file types are .txt and .csv")
 
