@@ -29,9 +29,23 @@ def create_sample_bracket():
 
 def test_create_and_read_bracket(store):
     bracket = create_sample_bracket()
-    store.create("bracket1", bracket)
+    user_id = "user123"
+    store.create("bracket1", bracket, user_id)
 
-    fetched = store.read("bracket1")
+    fetched = store.read("bracket1", user_id)
     assert fetched is not None
     assert isinstance(fetched, Bracket)
     assert len(fetched.rounds) == len(bracket.rounds)
+
+def test_create_duplicate_bracket_id_fails(store):
+    bracket = create_sample_bracket()
+    user_id1 = "user1"
+    user_id2 = "user2"
+    bracket_id = "duplicate_id"
+
+    # First creation should succeed
+    store.create(bracket_id, bracket, user_id1)
+
+    # Second creation with same bracket_id (even for a different user) should fail
+    with pytest.raises(ValueError):
+        store.create(bracket_id, bracket, user_id2)
