@@ -74,6 +74,12 @@ class SQLiteBracketStore(BracketStore):
             )
             return [pickle.loads(row[0]) for row in cur.fetchall()]
 
+    def list_all_with_ids(self, user_id: str) -> list[tuple[str, Bracket]]:
+        import sqlite3, pickle
+        with sqlite3.connect(self.db_path) as conn:
+            cur = conn.execute("SELECT id, bracket_blob FROM brackets WHERE user_id = ?", (user_id,))
+            return [(row[0], pickle.loads(row[1])) for row in cur.fetchall()]
+
     def bracket_id_exists(self, bracket_id: str) -> bool:
         with sqlite3.connect(self.db_path) as conn:
             cur = conn.execute("SELECT 1 FROM brackets WHERE id = ?", (bracket_id,))

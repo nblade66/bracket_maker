@@ -49,6 +49,14 @@ class BracketStore(ABC):
         pass
 
     @abstractmethod
+    def list_all_with_ids(self, user_id: str) -> list[tuple[str, Bracket]]:
+        """
+        List all brackets belonging to the given user, returning (bracket_id, Bracket) tuples.
+        Returns a list of (bracket_id, Bracket) tuples.
+        """
+        pass
+
+    @abstractmethod
     def bracket_id_exists(self, bracket_id: str) -> bool:
         """
         Check if a bracket_id exists for any user (global uniqueness).

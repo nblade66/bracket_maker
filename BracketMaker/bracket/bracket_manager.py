@@ -33,3 +33,9 @@ class BracketManager:
 
     def list_brackets(self) -> list[Bracket]:
         return self.store.list_all(self.user_id)
+
+    def list_brackets_with_ids(self) -> list[tuple[str, Bracket]]:
+        """
+        Returns a list of (bracket_id, bracket) tuples for the current user.
+        """
+        return self.store.list_all_with_ids(self.user_id)

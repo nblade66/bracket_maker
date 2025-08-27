@@ -2,3 +2,7 @@ __pycache__/
 .pytest_cache/
 venv/
 participants.db
+data/brackets/*
+!data/brackets/.gitkeep
+data/participants/*
+!data/participants/.gitkeep
