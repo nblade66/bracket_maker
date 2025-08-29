@@ -32,7 +32,7 @@ class H2H:
 
     def set_winner(self, winner: Participant):
         """Set the winner for the current matchup."""
-        self.get_current_matchup[1].set_winner(winner)
+        self.get_current_matchup()[1].set_winner(winner)
     
     def auto_resolve(self, winner_selector):
         """

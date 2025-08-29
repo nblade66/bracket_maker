@@ -324,7 +324,7 @@ class Bracket:
                     return (matchup, r_index, m_index)
         return None
 
-    def get_undecided_matchups(self):
+    def get_undecided_matchups(self) -> list[tuple[int, Matchup]]:
         """Return a list of (round_num, matchup) for all undecided matchups in order."""
         undecided = []
         for round_num, rnd in enumerate(self.rounds, start=1):

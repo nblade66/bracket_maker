@@ -43,6 +43,7 @@ def main():
     choice = prompt_main_menu()
 
     if choice == "1":
+        # TODO: Allow user to import or select from available import files
         track_file = "data/imports/complete_bts_discography.csv"
         store = SQLiteParticipantStore()
         loader = FileLoader(store)
@@ -74,10 +75,12 @@ def head_to_head(bracket: Bracket):
     h2h = H2H(bracket)
 
     while True:
-        matchup = h2h.get_current_matchup()
+        round, matchup = h2h.get_current_matchup() or (None, None)
         if matchup is None:
             break  # Tournament done!
 
+        print(f"\n--- Round {round} ---")
+        
         p1, p2 = matchup.participant1, matchup.participant2
         print(f"\nMatchup: 1) {p1.name}  vs  2) {p2.name}")
 
@@ -86,9 +89,9 @@ def head_to_head(bracket: Bracket):
             print("Exiting head-to-head. Progress saved.")
             return
         elif choice == "1":
-            h2h.set_winner(matchup, p1)
+            h2h.set_winner(p1)
         elif choice == "2":
-            h2h.set_winner(matchup, p2)
+            h2h.set_winner(p2)
         else:
             print("Invalid choice.")
             continue
