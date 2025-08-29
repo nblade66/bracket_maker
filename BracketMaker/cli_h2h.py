@@ -9,6 +9,7 @@ from BracketMaker.file_loader import FileLoader
 from BracketMaker.bracket.bracket import Bracket
 from BracketMaker.participant.store.sqlite_participant_store import SQLiteParticipantStore
 from BracketMaker.bracket.bracket_manager import BracketManager
+from BracketMaker.logic.h2h import H2H
 
 def prompt_user_id():
     return input("Enter your user ID: ").strip()
@@ -70,42 +71,32 @@ def main():
     head_to_head(bracket)
 
 def head_to_head(bracket: Bracket):
-    print("Starting head-to-head matchup selection...")
-    print("Type 'exit' at any prompt to quit and save your progress.\n")
+    h2h = H2H(bracket)
 
-    # Iterate over rounds and matchups in order
-    for round_num, rnd in enumerate(bracket.rounds, start=1):
-        print(f"\nRound {round_num}:")
-        for matchup in rnd:
-            # If matchup already decided, skip
-            if matchup.is_decided():
-                continue
+    while True:
+        matchup = h2h.get_current_matchup()
+        if matchup is None:
+            break  # Tournament done!
 
-            p1_name = matchup.participant1.name
-            p2_name = matchup.participant2.name
+        p1, p2 = matchup.participant1, matchup.participant2
+        print(f"\nMatchup: 1) {p1.name}  vs  2) {p2.name}")
 
-            print(f"Matchup: 1) {p1_name}  vs  2) {p2_name}")
-            while True:
-                choice = input("Enter winner (1 or 2, or 'exit' to quit): ").strip()
-                if choice.lower() == "exit":
-                    print("Exiting head-to-head. Progress saved.")
-                    return
-                if choice == "1":
-                    winner = matchup.participant1
-                    break
-                elif choice == "2":
-                    winner = matchup.participant2
-                    break
-                else:
-                    print("Invalid choice. Please enter 1, 2, or 'exit'.")
+        choice = input("Enter winner (1 or 2, or 'exit' to quit): ").strip()
+        if choice.lower() == "exit":
+            print("Exiting head-to-head. Progress saved.")
+            return
+        elif choice == "1":
+            h2h.set_winner(matchup, p1)
+        elif choice == "2":
+            h2h.set_winner(matchup, p2)
+        else:
+            print("Invalid choice.")
+            continue
 
-            matchup.set_winner(winner)
-            print(f"Winner set to {winner.name}")
+        print(f"Winner set to {matchup.winner.name}")
 
-    if bracket.is_complete():
-        print(f"\nTournament complete! Winner: {bracket.get_winner().name}")
-    else:
-        print("\nTournament not complete yet. Some matchups remain undecided.")
+    print(f"\nTournament complete! Winner: {bracket.get_winner().name}")
+
 
 
 if __name__ == "__main__":
