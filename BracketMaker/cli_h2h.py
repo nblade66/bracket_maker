@@ -10,6 +10,7 @@ from BracketMaker.bracket.bracket import Bracket
 from BracketMaker.participant.store.sqlite_participant_store import SQLiteParticipantStore
 from BracketMaker.bracket.bracket_manager import BracketManager
 from BracketMaker.logic.h2h import H2H
+from BracketMaker.participant.participant import Participant
 
 def prompt_user_id():
     return input("Enter your user ID: ").strip()
@@ -84,10 +85,26 @@ def head_to_head(bracket: Bracket):
         p1, p2 = matchup.participant1, matchup.participant2
         print(f"\nMatchup: 1) {p1.name}  vs  2) {p2.name}")
 
-        choice = input("Enter winner (1 or 2, or 'exit' to quit): ").strip()
+        choice = input("Enter winner (1 or 2), or 'exit' to quit). "
+        "Having trouble deciding? Type 'coin flip': ").strip()
         if choice.lower() == "exit":
             print("Exiting head-to-head. Progress saved.")
             return
+        elif choice.lower() == "coin flip":
+            while True:
+                result = h2h.suggest_random_winner(matchup)
+                print(f"Coin flip result: {result.name}")
+                confirm = input(f"Set {result.name} as winner? (y/n, or exit): ").strip().lower()
+                if confirm == 'y':
+                    h2h.set_winner(result)
+                    break
+                elif confirm == 'n':
+                    print("Re-flipping the coin...")
+                elif confirm == 'exit':
+                    print("Exiting head-to-head. Progress saved.")
+                    return
+                else:
+                    print("Invalid input. Please enter 'y' or 'n'.")
         elif choice == "1":
             h2h.set_winner(p1)
         elif choice == "2":

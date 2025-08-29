@@ -34,6 +34,11 @@ class H2H:
         """Set the winner for the current matchup."""
         self.get_current_matchup()[1].set_winner(winner)
     
+    def suggest_random_winner(self, matchup: Matchup) -> Participant:
+        """ Suggest a random winner for the given matchup. """
+        import random
+        return random.choice([p for p in (matchup.participant1, matchup.participant2) if p is not None])
+    
     def auto_resolve(self, winner_selector):
         """
         Resolve all undecided matchups using a provided winner_selector function.

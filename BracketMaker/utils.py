@@ -10,3 +10,7 @@ def interleave(list1: list, list2: list) -> list:
             result.append(list2[i])
     
     return result
+
+def random_choice(choices: list):
+    import random
+    return random.choice(choices)

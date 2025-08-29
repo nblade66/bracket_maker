@@ -12,16 +12,22 @@ TODO:
 * User authentication and passwords; this will require a user database linked to BracketStore user_ids
   * Maybe let's try FastAPI to learn it
   * Can I use Auth and FastAPI with my current structure?
-* Certain Bracket types will call specific ParticipantStore, while the general Bracket will accept all types of stores. E.g. SongBracket will accept SongParticipantStore, which will only use SongParticipant. Bracket will accept anything that extends ParticipantStore, which will accept anything that extends Participant.
-* Feature to reset the bracket to round 1 or reset the round
-* Web front end for click selection and nicer UI
-* Ability to play a short clip of the song
-  * I think Participant should be extended by "Song" and "Song" should be extended by "SpotifySong"
+
+* Song Class Implementations:
+  * Certain Bracket types will call specific ParticipantStore, while the general Bracket will accept all types of stores. E.g. SongBracket will accept SongParticipantStore, which will only use SongParticipant. Bracket will accept anything that extends ParticipantStore, which will accept anything that extends Participant.
+    * Will need to modify FileLoader::load_from_csv to be more Spotify specific with naming and documentation, since currently load_from_csv is for Spotify csv files.
+  * Ability to play a short clip of the song
+    * I think Participant should be extended by "Song" and "Song" should be extended by "SpotifySong"
     so that in the future if brackets aren't SongBrackets, they can still work
 
-Features:
+Wishlist:
 * Ranking feature that sorts all the participants based on head-to-head matchups
   * Implement a MergeSort(?) algorithm that compares based on head-to-heads
 * Ranking just the top 10 (or 15 or 20) out of all the participants based on
   head-to-head matchups. What is the fastest way to do this when there are many participants?
-* Implement a "Can't decide" feature, which carries both songs over to the next round and the user can select between all three (or more) songs. Actually, implement a "I can't decide, coin flip for me" feature that flips a coin and then allows the user to decide if she wants to keep the result, reflip. or choose the result manually.
+* Feature to reset the bracket to round 1 or reset the round
+* Web front end for click selection and nicer UI
+* Create ParticipantStore manually, not from an imported file
+* Is there a way to construct a "tier list" using a tournament style bracket? Basically, if there are songs/participants that are too hard to decide between, they are placed in the same tier
+* Feature to send two participants forward into the next round and re-shuffle only that round; I think this could help generate a tier list
+  * By extension, feature to hold both participants back from the round because they both don't deserve to advance
