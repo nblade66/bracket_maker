@@ -24,3 +24,4 @@ Features:
   * Implement a MergeSort(?) algorithm that compares based on head-to-heads
 * Ranking just the top 10 (or 15 or 20) out of all the participants based on
   head-to-head matchups. What is the fastest way to do this when there are many participants?
+* Implement a "Can't decide" feature, which carries both songs over to the next round and the user can select between all three (or more) songs. Actually, implement a "I can't decide, coin flip for me" feature that flips a coin and then allows the user to decide if she wants to keep the result, reflip. or choose the result manually.
